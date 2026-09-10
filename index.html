@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DW5 — David Weiss, Delray Beach</title>
-<meta name="description" content="DW5 LLC is David Weiss's company: small consumer businesses built and run from Delray Beach, Florida, mostly around jewelry and gold.">
+<title>DW5 — A funky little adventure</title>
+<meta name="description" content="DW5 LLC, Delray Beach, Florida. If you need jewelry, we might have it. If you need web traffic, we might have that too. Drop a line.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..900,0..100,0..1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -12,27 +12,45 @@
 <body>
 <header class="site"><div class="wrap">
   <a class="mark" href="/" aria-label="DW5">DW<span>5</span></a>
-  <p class="tag">David Weiss &middot; Delray Beach, Florida</p>
+  <p class="tag">A funky little adventure.</p>
 </div></header>
 <main><div class="wrap">
-  <h1>I build and run small consumer businesses. Most of them are about gold and jewelry. A couple I just couldn't leave alone.</h1>
+  <h1>What do we do? Well, that depends.</h1>
   <section class="about">
-    <p>The main one is <a href="https://snappy.gold" rel="noopener">Snappy Gold</a>, a mail-in gold and jewelry buyer I started in early 2026. People photograph what they've got, get an honest number, and ship it to me on a prepaid label. I open every package myself. When the piece deserves more than melt value, it goes to <a href="https://beachedgold.com" rel="noopener">Beached Gold</a>, where I resell estate and vintage jewelry to people who'll actually wear it.</p>
-    <p>Before this I spent six years building Par Nasa, a medical-supply company, from a spreadsheet to eight figures in revenue and a sale in 2021. Before that: marketing at ModernAd Media, a stint at Morgan Stanley, and a South Florida magazine I co-founded out of college. I like businesses where the customer can tell within a week whether you kept your word.</p>
-    <p>On the side: <a href="https://boxingfix.com" rel="noopener">BoxingFix</a>, because I've never stopped watching boxing; <a href="https://wikiconflict.com" rel="noopener">wikiconflict</a>, a plain-language history of the Israeli&ndash;Palestinian conflict; and <a href="https://feudme.com" rel="noopener">FeudMe</a>, where two people argue and an AI keeps score.</p>
-    <p>I work with a handful of advertisers and partners whose offers I'd recommend to a customer standing in front of me. If that's you, write.</p>
+    <p>If you need jewelry, we might have it. If you need web traffic, we might have that as well. Bored? I can recommend some good movies. Hungry? I'll take you out to lunch. All that to say, we really don't do much, but feel free to drop a line and we'll get back to you pretty quickly.</p>
   </section>
   <section class="contact">
-    <h2>Partnerships and networks</h2>
-    <a class="big" href="mailto:partnerships@dw5.llc">partnerships@dw5.llc</a>
-    <h2 style="margin-top:1.5rem">Everything else</h2>
-    <a class="big" href="mailto:hello@dw5.llc">hello@dw5.llc</a>
-    <p>I answer my own email.</p>
+    <form id="contact" novalidate>
+      <label>Your name<input name="name" type="text" autocomplete="name" required></label>
+      <label>Your email<input name="email" type="email" autocomplete="email" required></label>
+      <label>What's up?<textarea name="message" rows="5" required></textarea></label>
+      <input name="company" type="text" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+      <button type="submit">Drop a line</button>
+      <p class="status" role="status" aria-live="polite"></p>
+    </form>
+    <p class="alt">Or just email <a href="mailto:hello@dw5.llc">hello@dw5.llc</a>. Advertisers and networks: <a href="mailto:partnerships@dw5.llc">partnerships@dw5.llc</a>.</p>
   </section>
 </div></main>
 <footer class="site"><div class="wrap">
   <div>DW5 LLC · Delray Beach, Florida</div>
   <div><a href="privacy.html">Privacy</a> &nbsp; <a href="terms.html">Terms</a></div>
 </div></footer>
+<script>
+(function(){
+  var f=document.getElementById('contact'), st=f.querySelector('.status'), btn=f.querySelector('button');
+  f.addEventListener('submit',async function(e){
+    e.preventDefault();
+    var d=Object.fromEntries(new FormData(f).entries());
+    if(!d.name.trim()||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)||!d.message.trim()){ st.textContent='Need a name, a real email, and a message.'; return; }
+    btn.disabled=true; st.textContent='Sending…';
+    try{
+      var r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
+      var j=await r.json().catch(function(){return {};});
+      if(r.ok&&j.ok){ st.textContent='Got it. Talk soon.'; f.reset(); }
+      else { st.textContent=(j.error||'Something went wrong')+' — email hello@dw5.llc instead.'; btn.disabled=false; }
+    }catch(err){ st.textContent='Couldn\'t send — email hello@dw5.llc instead.'; btn.disabled=false; }
+  });
+})();
+</script>
 </body>
 </html>
