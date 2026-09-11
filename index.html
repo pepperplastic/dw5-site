@@ -13,6 +13,11 @@
 <header class="site"><div class="wrap hero">
   <div>
     <a class="mark" href="/" aria-label="DW5">DW<span>5</span></a>
+    <p class="rotator" aria-live="off">
+      <span class="rot-label">We do</span>
+      <span class="rot-stage"><span class="rot-word is-on" data-i="0">Real estate</span></span>
+    </p>
+    <noscript><p class="rotator-static">Real estate · Digital marketing · Healthcare supplies · Consumer packaged goods · Gold and jewelry</p></noscript>
   </div>
   <svg class="art" viewBox="0 0 220 150" role="img" aria-label="Sun setting over the sea" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <defs><clipPath id="above"><rect x="0" y="0" width="220" height="92"/></clipPath></defs>
@@ -31,11 +36,8 @@
   </svg>
 </div></header>
 <main><div class="wrap">
-  <h1>Hopefully we can help you with something.</h1>
-  <section class="about">
-    <p>If you need jewelry, we might have it. If you need web traffic, we might have that as well. Bored? I can recommend some good movies. Hungry? I'll take you out to lunch. All that to say, we really don't do much, but feel free to drop a line and we'll get back to you pretty quickly.</p>
-  </section>
   <section class="contact">
+    <h2 class="drop">Drop us a line</h2>
     <form id="contact" novalidate>
       <label>Your name<input name="name" type="text" autocomplete="name" required></label>
       <label>Your email<input name="email" type="email" autocomplete="email" required></label>
@@ -52,6 +54,21 @@
   <div><a href="privacy.html">Privacy</a> &nbsp; <a href="terms.html">Terms</a></div>
 </div></footer>
 <script>
+(function(){
+  var words=['Real estate','Digital marketing','Healthcare supplies','Consumer packaged goods','Gold and jewelry'];
+  var stage=document.querySelector('.rot-stage'); if(!stage) return;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ stage.textContent=words.join('  ·  '); return; }
+  var i=0;
+  setInterval(function(){
+    var cur=stage.querySelector('.rot-word');
+    i=(i+1)%words.length;
+    var next=document.createElement('span'); next.className='rot-word'; next.textContent=words[i];
+    stage.appendChild(next);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ cur.classList.remove('is-on'); cur.classList.add('is-off'); next.classList.add('is-on'); }); });
+    setTimeout(function(){ if(cur.parentNode) cur.parentNode.removeChild(cur); },700);
+  },2600);
+})();
 (function(){
   var f=document.getElementById('contact'), st=f.querySelector('.status'), btn=f.querySelector('button');
   f.addEventListener('submit',async function(e){

@@ -47,3 +47,16 @@ form#contact .status{min-height:1.4em;margin:0;color:var(--soft);font-size:.95re
 .hero{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem}
 .art{width:clamp(140px,22vw,220px);height:auto;flex:none;margin-bottom:.4rem}
 @media (max-width:600px){.hero{flex-direction:column;align-items:flex-start;gap:1.25rem}.art{width:160px}}
+
+/* rotator under the wordmark */
+.rotator{margin:1rem 0 0;font-size:clamp(1.25rem,3.2vw,1.7rem);line-height:1.3;display:flex;gap:.5rem;align-items:baseline;flex-wrap:wrap}
+.rot-label{color:var(--soft)}
+.rot-stage{position:relative;display:inline-block;min-width:24ch;height:1.3em;overflow:hidden;font-weight:600;color:var(--sea)}
+.rot-word{position:absolute;left:0;top:0;white-space:nowrap;opacity:0;transform:translateY(.6em);transition:opacity .55s ease,transform .55s ease}
+.rot-word.is-on{opacity:1;transform:translateY(0)}
+.rot-word.is-off{opacity:0;transform:translateY(-.6em)}
+.rotator-static{margin:1rem 0 0;color:var(--sea);font-weight:600}
+.contact h2.drop{font-size:clamp(1.5rem,4vw,2.1rem);font-weight:600;color:var(--ink);margin:0 0 1rem;letter-spacing:-.01em;font-variation-settings:"opsz" 72,"SOFT" 60}
+main{padding-top:1.5rem}
+.contact{border-top:0;padding-top:1rem}
+@media (max-width:600px){.rot-stage{min-width:0;width:100%}.rotator{flex-direction:column;gap:.15rem}}
