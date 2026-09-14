@@ -56,7 +56,9 @@ main{padding-top:1.5rem}
 /* rotator under the wordmark — pure CSS, 5 words × 2.6s = 13s loop */
 .rotator{margin:1rem 0 0;font-size:clamp(1.25rem,3.2vw,1.7rem);line-height:1.3;display:flex;gap:.5rem;align-items:baseline;flex-wrap:wrap}
 .rot-label{color:var(--soft)}
-.rot-stage{position:relative;display:inline-block;min-width:24ch;height:1.3em;font-weight:600;color:var(--sea)}
+.rot-label b{font-weight:600;color:var(--ink)}
+.rot-word .n{color:var(--soft);font-weight:400;margin-right:.15em}
+.rot-stage{position:relative;display:inline-block;min-width:26ch;height:1.3em;font-weight:600;color:var(--sea)}
 .rot-word{position:absolute;left:0;top:0;white-space:nowrap;opacity:0;transform:translateY(.6em);
   animation:rot 13s cubic-bezier(.4,0,.2,1) infinite;animation-delay:calc(var(--i) * 2.6s)}
 @keyframes rot{
